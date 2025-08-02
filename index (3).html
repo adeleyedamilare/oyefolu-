@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>My Bank Account Details</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom font for a clean look */
+      body {
+        font-family: "Inter", sans-serif;
+      }
+      /* Hide the message initially */
+      .copied-message {
+        opacity: 0;
+        transition: opacity 0.3s ease-in-out;
+      }
+      /* Show the message */
+      .copied-message.show {
+        opacity: 1;
+      }
+    </style>
+  </head>
+  <body
+    class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen flex items-center justify-center p-4"
+  >
+    <div
+      class="bg-white p-8 rounded-xl shadow-lg max-w-md w-full text-center border border-gray-200"
+    >
+      <h1 class="text-3xl font-extrabold text-gray-800 mb-6">
+        My Bank Account Details
+      </h1>
+
+      <!-- Bank Name Section -->
+      <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+        <label
+          for="bankName"
+          class="block text-sm font-medium text-gray-600 mb-2"
+          >Bank Name:</label
+        >
+        <div class="flex items-center justify-between">
+          <span
+            id="bankName"
+            class="text-xl font-semibold text-gray-900 select-all"
+            >HABEEB A.A</span
+          >
+          <button
+            onclick="copyToClipboard('bankName', 'bankNameMessage')"
+            class="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out transform hover:scale-105"
+            aria-label="Copy Bank Name"
+          >
+            Copy
+          </button>
+        </div>
+        <p
+          id="bankNameMessage"
+          class="copied-message text-sm text-green-600 mt-2"
+        >
+          KUDA!
+        </p>
+      </div>
+
+      <!-- Account Number Section -->
+      <div class="mb-6 bg-gray-50 p-4 rounded-lg border border-gray-100">
+        <label
+          for="accountNumber"
+          class="block text-sm font-medium text-gray-600 mb-2"
+          >Account Number:</label
+        >
+        <div class="flex items-center justify-between">
+          <span
+            id="accountNumber"
+            class="text-xl font-semibold text-gray-900 select-all"
+            >2076716289</span
+          >
+          <button
+            onclick="copyToClipboard('accountNumber', 'accountNumberMessage')"
+            class="ml-4 px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50 transition duration-200 ease-in-out transform hover:scale-105"
+            aria-label="Copy Account Number"
+          >
+            Copy
+          </button>
+        </div>
+        <p
+          id="accountNumberMessage"
+          class="copied-message text-sm text-green-600 mt-2"
+        >
+          Copied!
+        </p>
+      </div>
+
+      <p class="text-gray-500 text-sm mt-8">
+        copyright@ 2025.Blackluxury.Fashion | Developed by:
+        <a href="https://alfa of wecma.ng" target="_blank"
+          >Alfa of wecma Tech. LTD.</a
+        >
+      </p>
+    </div>
+
+    <script>
+      /**
+       * Copies the text content of an element to the clipboard and shows a "Copied!" message.
+       * @param {string} elementId The ID of the element whose text content needs to be copied.
+       * @param {string} messageId The ID of the message element to show "Copied!".
+       */
+      function copyToClipboard(elementId, messageId) {
+        const element = document.getElementById(elementId);
+        const messageElement = document.getElementById(messageId);
+
+        if (element && messageElement) {
+          const textToCopy = element.textContent || element.innerText;
+
+          // Create a temporary textarea element to copy the text
+          const tempTextArea = document.createElement("textarea");
+          tempTextArea.value = textToCopy;
+          document.body.appendChild(tempTextArea);
+
+          // Select the text in the textarea
+          tempTextArea.select();
+          tempTextArea.setSelectionRange(0, 99999); // For mobile devices
+
+          try {
+            // Execute the copy command
+            document.execCommand("copy");
+
+            // Show "Copied!" message
+            messageElement.classList.add("show");
+            setTimeout(() => {
+              messageElement.classList.remove("show");
+            }, 2000); // Hide after 2 seconds
+          } catch (err) {
+            console.error("Failed to copy text: ", err);
+            // Fallback for browsers that don't support execCommand or when it fails
+            // You might want to display a different message or offer manual copy instructions
+          } finally {
+            // Remove the temporary textarea
+            document.body.removeChild(tempTextArea);
+          }
+        } else {
+          console.error("Element or message element not found for copying.");
+        }
+      }
+    </script>
+  </body>
+</html>
